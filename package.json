@@ -4,16 +4,16 @@
   "description": "Software Testing 2022-23 Sample Test Project",
   "main": "server.js",
   "scripts": {
-    "test-unit": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/app/app.unit.test.js --forceExit",
-    "test-performance": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/app/app.performance.test.js",
-    "test-db": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/db/db.test.js --forceExit",
-    "test-api-admin": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/api/api.users-admin.test.js --forceExit",
-    "test-api-simple": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/api/api.users-simple.test.js --forceExit",
-    "test-api-generic": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/api/api.users-generic.test.js --forceExit",
-    "test": "DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config  --forceExit && node db-cleanup.js",
-    "performance": "artillery run __tests__/performance/performance-test.yml --output performance.json && node db-cleanup.js",
-    "report": "artillery report --output performance.html performance.json"
-  },
+  "test-unit": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/app/app.unit.test.js --forceExit",
+  "test-performance": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/app/app.performance.test.js",
+  "test-db": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/db/db.test.js --forceExit",
+  "test-api-admin": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/api/api.users-admin.test.js --forceExit",
+  "test-api-simple": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/api/api.users-simple.test.js --forceExit",
+  "test-api-generic": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config -- __tests__/api/api.users-generic.test.js --forceExit",
+  "test": "cross-env DOTENV_CONFIG_PATH=.env jest --setupFiles dotenv/config --forceExit && node db-cleanup.js",
+  "performance": "artillery run __tests__/performance/performance-test.yml --output performance.json && node db-cleanup.js",
+  "report": "artillery report --output performance.html performance.json"
+},
   "keywords": [
     "software",
     "testing",
@@ -31,13 +31,16 @@
     "dotenv": "latest",
     "express": "^4.19.2",
     "express-flash": "latest",
-    "jsonwebtoken": "latest",
     "express-jwt": "^8.4.1",
     "express-session": "latest",
     "express-validator": "latest",
     "jest": "latest",
     "jest-measure": "latest",
+    "jsonwebtoken": "latest",
     "jwks-rsa": "latest",
     "mongoose": "^6.10.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
   }
 }
