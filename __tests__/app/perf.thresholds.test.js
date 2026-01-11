@@ -16,8 +16,7 @@ describe("Performance thresholds for GET /", () => {
 
   it("R3-T02: should respond in <= 500ms (soft upper bound)", async () => {
     // Why this test exists:
-    // R3 specifies a soft upper bound of 500ms; this test records it explicitly
-    // to provide concrete latency evidence.
+    // R3 specifies a soft upper bound of 500ms; this test records it explicitly.
     const startTimeMs = Date.now();
     const response = await axios.get(prepare("/"));
     const durationMs = Date.now() - startTimeMs;

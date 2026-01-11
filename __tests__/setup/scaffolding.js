@@ -1,8 +1,6 @@
 // Scaffolding helper for tests:
-// This file intentionally provides reusable, non-asserting helpers that make it
-// easier to set up test preconditions. It is *not* a behavioral test itself.
-// Keeping this logic here reduces duplication and keeps each test focused on
-// Arrange/Act/Assert and the LO1 requirement it is evidencing.
+// This file centralizes small utilities used across multiple tests so that
+// each test can focus on AAA (Arrange/Act/Assert) without duplicating boilerplate.
 const axios = require("axios");
 const jwt = require("jsonwebtoken");
 const { prepare } = require("./test-helper");
@@ -16,10 +14,8 @@ const registerUser = async ({
   address = "Somewhere 10",
   role = "User"
 }) => {
-  // Scaffolding helper:
-  // We register via the public API to exercise real behavior (validation,
-  // hashing, persistence). This avoids bypassing logic with direct DB writes
-  // and gives more credible evidence for LO1 requirements.
+  // Scaffolding: register a user using the public API so tests can rely on
+  // realistic flows (hashing, validation, persistence) rather than direct DB writes.
   return axios.post(prepare("/register"), {
     name,
     role,
@@ -30,9 +26,7 @@ const registerUser = async ({
 };
 
 const loginUser = async ({ email, password = DEFAULT_PASSWORD }) => {
-  // Scaffolding helper:
-  // We log in via the same endpoint used by clients to obtain real JWTs
-  // for protected-route tests. This ensures tokens match actual runtime behavior.
+  // Scaffolding: authenticate using the same endpoint as clients to retrieve JWTs.
   return axios.post(prepare("/login"), {
     email,
     password
@@ -44,9 +38,8 @@ const buildAuthHeader = (token) => ({
 });
 
 const signTokenWithSecret = ({ userId, secret }) => {
-  // Scaffolding helper:
-  // This helper signs a token with a custom secret so tests can explicitly
-  // prove that only API_SECRET-signed tokens are accepted (invalid signature tests).
+  // Scaffolding: create a JWT with a caller-provided secret to simulate
+  // invalid signatures or test custom token scenarios.
   return jwt.sign({ id: userId }, secret, { expiresIn: 86400 });
 };
 

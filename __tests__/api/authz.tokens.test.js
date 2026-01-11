@@ -11,8 +11,7 @@ describe("AuthZ/AuthN token handling tests", () => {
   it("R1-T01: should reject a JWT signed with the wrong secret", async () => {
     // Why this test exists:
     // R1 requires protected routes to accept ONLY tokens signed with API_SECRET.
-    // This test explicitly forges a token using a wrong secret to show that
-    // invalid signatures are rejected and do not grant access.
+    // A wrong-secret token must be rejected to prevent token forgery.
     const adminLogin = await loginUser({
       email: "test@test.com"
     });
@@ -35,7 +34,7 @@ describe("AuthZ/AuthN token handling tests", () => {
   it("R1-T05: should reject access with a token belonging to a deleted user", async () => {
     // Why this test exists:
     // R1 requires that tokens belong to an existing user. Once a user is deleted,
-    // their token must be invalidated by the system to prevent orphaned access.
+    // their token should no longer authorize access.
     const uniqueSuffix = Date.now();
     const email = `testdelete_${uniqueSuffix}@test.com`;
 
