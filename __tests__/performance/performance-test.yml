@@ -25,7 +25,7 @@ scenarios:
     arrivalRate: 1
     flow:
       - post:
-          url: "/users/register"
+          url: "/register"
           beforeRequest: generateSignupData
           json:
             name: "{{ name }}"
@@ -37,7 +37,17 @@ scenarios:
   - name: "Login user and apply multiple order actions"
     flow:
       - post:
-          url: "/users/login"
+          url: "/register"
+          beforeRequest: generateSignupData
+          json:
+            name: "{{ name }}"
+            email: "{{ email }}"
+            password: "{{ password }}"
+            role: "{{ role }}"
+            address: "{{ address }}"
+
+      - post:
+          url: "/login"
           beforeRequest: generateLoginData
           json:
             email: "{{ email }}"
@@ -66,7 +76,7 @@ scenarios:
             Authorization: 'Bearer {{ accessToken }}'
 
       - get:
-          url: "/orders"
+          url: "/orders/all"
           headers:
             Authorization: 'Bearer {{ accessToken }}'
 
