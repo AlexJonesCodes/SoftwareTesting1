@@ -1,6 +1,7 @@
 const generateSignupData = (requestParams, ctx, ee, next) => {
   ctx.vars["name"] = "Test PerformanceUser";
-  ctx.vars["email"] = "testperformanceuser@test.com";
+  const uniqueSuffix = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+  ctx.vars["email"] = `testperformanceuser_${uniqueSuffix}@test.com`;
   ctx.vars["password"] = "12345";
   ctx.vars["address"] = "Somewhere X";
   ctx.vars["role"] = "Admin";
@@ -9,7 +10,10 @@ const generateSignupData = (requestParams, ctx, ee, next) => {
 }
 
 const generateLoginData = (requestParams, ctx, ee, next) => {
-  ctx.vars["email"] = "testperformanceuser@test.com";
+  if (!ctx.vars["email"]) {
+    const uniqueSuffix = `${Date.now()}_${Math.floor(Math.random() * 100000)}`;
+    ctx.vars["email"] = `testperformanceuser_${uniqueSuffix}@test.com`;
+  }
   ctx.vars["password"] = "12345";
 
   return next();
