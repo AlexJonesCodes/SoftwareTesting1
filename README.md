@@ -98,6 +98,8 @@ In order to setup the application for Continuous Integration tests execution (wh
 
 *Disclaimer: All actions are proposed in order to setup the project and are just suggestions. Since they require applying sudo permissions to processes. Use at your own risk and discretion. It is highly recommended not to do it on any device containing sensitive data.*
 
+For a concise description of the GitLab CI pipeline stages, automated test execution, and coverage artifacts, see [`CI_PIPELINE.md`](CI_PIPELINE.md). For review criteria and issues identified in the current codebase, see [`CODE_REVIEW.md`](CODE_REVIEW.md).
+
 1. Clone the project to a new Gitlab repository.
 2. Enable CI/CD in your project. You can find directions [here](https://docs.gitlab.com/ee/ci/enable_or_disable_ci.html).
 3. Register a Gitlab Runner in a machine you wish to run it. Once again, you can follow the instructions provided in the [official Gitlab documentation](https://docs.gitlab.com/runner/register/). When prompted to insert image for the runner, insert `docker`.
@@ -129,4 +131,3 @@ These are indicative however, and you might need to search deeper on each issue.
 *Suggestion:* Using Gitlab CI pipeline interface, you can open the step you want, check all console output and read about the cause of the failure.
 
 **Disclaimer: This software is provided "as-is", with no guarantees. The developer makes no other warranties, express or implied, and hereby disclaims all implied warranties, including any warranty of merchantability and warranty of fitness for a particular purpose. The project is provided for educational purposes, and are no guarantees of any kind  that it is fault-free, despite the best of efforts and intentions of its developer to provide a comprehensive and stable result.**
-

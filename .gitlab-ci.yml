@@ -1,9 +1,10 @@
-image: docker:latest
+image: docker:24.0.7
 
 services:
-  - node
-  - mongo
   - docker:dind
+
+variables:
+  DOCKER_TLS_CERTDIR: ""
 
 stages:
   - prepare_images
@@ -21,7 +22,7 @@ prepare_images:
 setup_applications:
   stage: setup_applications
   script:
-    - docker-compose -f docker-compose.yml up -d
+    - docker compose -f docker-compose.yml up -d
 
 check_status:
   stage: check_status
@@ -33,13 +34,19 @@ check_status:
 
 test:
   stage: test
-  allow_failure: true
   script:
-    docker run --network=mynetwork test
+    - docker run --name test-runner --network=mynetwork test
+    - docker cp test-runner:/app/coverage ./coverage
   dependencies:
     - prepare_images
+  artifacts:
+    when: always
+    paths:
+      - coverage/
+  after_script:
+    - docker rm -f test-runner || true
 
 teardown_applications:
   stage: teardown_applications
   script:
-    - docker-compose -f docker-compose.yml down
+    - docker compose -f docker-compose.yml down
